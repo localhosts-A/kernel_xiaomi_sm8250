@@ -170,7 +170,7 @@ static unsigned int XIAOMI_TP_DEBUG_EN;
 #define FTS_DEBUG(fmt, args...) printk("[FTS][%s]"fmt"\n", __func__, ##args)
 #else
 /* #define FTS_DEBUG(fmt, args...) printk("[FTS]"fmt"\n", ##args) */
-#define FTS_DEBUG(fmt, args...) printk(KERN_ERR "[FTS][Error]"fmt"\n", ##args)
+#define FTS_DEBUG(fmt, args...) 
 #endif
 #define FTS_FUNC_ENTER() printk("[FTS]%s: Enter\n", __func__)
 #define FTS_FUNC_EXIT()  printk("[FTS]%s: Exit(%d)\n", __func__, __LINE__)
