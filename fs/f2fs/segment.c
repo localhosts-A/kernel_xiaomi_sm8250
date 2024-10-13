@@ -2538,7 +2538,8 @@ out_unlock:
 	spin_unlock(&free_i->segmap_lock);
 
 	if (ret) {
-		f2fs_stop_checkpoint(sbi, false);
+		f2fs_stop_checkpoint(sbi, false,
+					STOP_CP_REASON_FLUSH_FAIL);
 		f2fs_bug_on(sbi, 1);
 	}
 	return ret;
@@ -3380,7 +3381,7 @@ out_err:
 
 	up_write(&sit_i->sentry_lock);
 	mutex_unlock(&curseg->curseg_mutex);
-	up_read(&SM_I(sbi)->curseg_lock);
+	f2fs_up_read(&SM_I(sbi)->curseg_lock);
 	return -ENOSPC;
 }
 
