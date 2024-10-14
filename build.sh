@@ -86,7 +86,7 @@ echo "TARGET_DEVICE: $TARGET_DEVICE"
 
 if [ $KSU_ENABLE -eq 1 ]; then
     echo "KSU is enabled"
-    curl -LSs "https://ghp.ci/raw.githubusercontent.com/localhosts-A/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
+    curl -LSs "https://ghp.ci/raw.githubusercontent.com/localhosts-A/KernelSU/main/kernel/setup.sh" | bash -s v1.0.1
 else
     echo "KSU is disabled"
 fi
@@ -174,7 +174,6 @@ scripts/config --file out/.config \
     -e PERF_CRITICAL_RT_TASK	\
     -e SF_BINDER		\
     -e OVERLAY_FS		\
-    -d DEBUG_FS \
     -e MIGT \
     -e MIGT_ENERGY_MODEL \
     -e MIHW \
