@@ -654,12 +654,6 @@ config MMHARDWARE_OTHER_DETECTION
 	help
 	  This adds support for mmhardware detection
 
-config PERF_HELPER
-	tristate "Record perflock messages"
-	default n
-	help
-	  this module support record perf lock history and other perf messages.
-
 config BOOTUP_RECLAIM
         bool "bootup reclaim"
         default n
