@@ -508,9 +508,6 @@ endif
 
 ifeq ($(cc-name),clang)
 KBUILD_CFLAGS += -mcpu=cortex-a55 -mtune=cortex-a55
-KBUILD_CFLAGS	+= -mllvm -inline-threshold=2500
-KBUILD_CFLAGS	+= -mllvm -inlinehint-threshold=2000
-KBUILD_CFLAGS	+= -mllvm -unroll-threshold=1200
 KBUILD_CFLAGS	+= $(call cc-option, -mllvm -polly) \
 		   $(call cc-option, -mllvm -polly-run-dce) \
 		   $(call cc-option, -mllvm -polly-run-inliner) \
