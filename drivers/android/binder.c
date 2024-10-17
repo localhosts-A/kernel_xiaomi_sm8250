@@ -3462,38 +3462,13 @@ static void binder_transaction(struct binder_proc *proc,
 		struct binder_object object;
 		binder_size_t object_offset;
 
-		if (binder_alloc_copy_from_buffer(&target_proc->alloc,
-						  &object_offset,
-						  t->buffer,
-						  buffer_offset,
-						  sizeof(object_offset))) {
-			return_error = BR_FAILED_REPLY;
-			return_error_param = -EINVAL;
-			return_error_line = __LINE__;
-			goto err_bad_offset;
-		}
-
-		/*
-		 * Copy the source user buffer up to the next object
-		 * that will be processed.
-		 */
-		copy_size = object_offset - user_offset;
-		if (copy_size && (user_offset > object_offset ||
-				object_offset > tr->data_size ||
-				binder_alloc_copy_user_to_buffer(
-					&target_proc->alloc,
-					t->buffer, user_offset,
-					user_buffer + user_offset,
-					copy_size))) {
-			binder_user_error("%d:%d got transaction with invalid data ptr\n",
-					proc->pid, thread->pid);
-			return_error = BR_FAILED_REPLY;
-			return_error_param = -EFAULT;
-			return_error_line = __LINE__;
-			goto err_copy_data_failed;
-		}
-		object_size = binder_get_object(target_proc, user_buffer,
-				t->buffer, object_offset, &object);
+		binder_alloc_copy_from_buffer(&target_proc->alloc,
+					      &object_offset,
+					      t->buffer,
+					      buffer_offset,
+					      sizeof(object_offset));
+		object_size = binder_get_object(target_proc, t->buffer,
+						object_offset, &object);
 		if (object_size == 0 || object_offset < off_min) {
 			binder_user_error("%d:%d got transaction with invalid offset (%lld, min %lld max %lld) or object.\n",
 					  proc->pid, thread->pid,
