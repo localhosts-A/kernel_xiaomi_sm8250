@@ -482,42 +482,6 @@ static void usb_qmp_powerup_phy(struct msm_ssphy_qmp *phy)
 	mb();
 }
 
-static void msm_ssphy_xiaomi_update_write(struct usb_phy *uphy)
-{
-	struct msm_ssphy_qmp *phy = container_of(uphy, struct msm_ssphy_qmp,
-					phy);
-
-	if (ssphy_txa_tx_drv_lvl)
-		writel_relaxed(ssphy_txa_tx_drv_lvl,
-			phy->base + USB3_DP_QSERDES_TXA_TX_DRV_LVL);
-
-	if (ssphy_pcs_g12s1_txmgn_v0)
-		writel_relaxed(ssphy_pcs_g12s1_txmgn_v0,
-			phy->base + USB3_DP_PCS_G12S1_TXMGN_V0);
-
-	if (ssphy_pcs_g12s1_txdeemph_m3p5db)
-		writel_relaxed(ssphy_pcs_g12s1_txdeemph_m3p5db,
-			phy->base + USB3_DP_PCS_G12S1_TXDEEMPH_M3P5DB);
-}
-
-static void msm_ssphy_xiaomi_update_read(struct usb_phy *uphy)
-{
-	struct msm_ssphy_qmp *phy = container_of(uphy, struct msm_ssphy_qmp,
-					phy);
-
-	pr_err("%s: USB3_DP: QSERDES_TXA_TX_DRV_LVL: (0x%02x)\n",
-		__func__,
-		readb_relaxed(phy->base + USB3_DP_QSERDES_TXA_TX_DRV_LVL));
-
-	pr_err("%s: USB3_DP: PCS_G12S1_TXMGN_V0: (0x%02x)\n",
-		__func__,
-		readb_relaxed(phy->base + USB3_DP_PCS_G12S1_TXMGN_V0));
-
-	pr_err("%s: USB3_DP: PCS_G12S1_TXDEEMPH_M3P5DB: (0x%02x)\n",
-		__func__,
-		readb_relaxed(phy->base + USB3_DP_PCS_G12S1_TXDEEMPH_M3P5DB));
-}
-
 static void msm_usb_write_readback(void __iomem *base, u32 offset,
 					const u32 mask, u32 val)
 {
